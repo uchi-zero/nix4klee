@@ -24,6 +24,7 @@
             llvmPackages = legacyPkgs.llvmPackages_16;
           };
           stdenv = llvm16.stdenv;
+          llvmPackages = llvm16;
         };
       }
     );
