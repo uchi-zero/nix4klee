@@ -21,10 +21,12 @@
       in {
         packages = {
           klee = pkgs.callPackage ./pkgs/klee.nix {
-            llvmPackages = legacyPkgs.llvmPackages_16;
+            llvmPackages = llvm16;
           };
-          stdenv = llvm16.stdenv;
+        };
+        legacyPackages = {
           llvmPackages = llvm16;
+          stdenv = llvm16.stdenv;
         };
       }
     );
