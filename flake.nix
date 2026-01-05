@@ -13,20 +13,23 @@
     nixpkgs-legacy,
     flake-utils,
   }:
-    flake-utils.lib.eachDefaultSystem (
+    {
+      overlays.default = final: prev: {
+        llvmPackages_klee = nixpkgs-legacy.legacyPackages.${prev.system}.llvmPackages_16;
+        klee = final.callPackage ./pkgs/klee.nix {
+          llvmPackages = final.llvmPackages_klee;
+        };
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-        legacyPkgs = nixpkgs-legacy.legacyPackages.${system};
-        llvm16 = legacyPkgs.llvmPackages_16;
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [self.overlays.default];
+        };
       in {
         packages = {
-          klee = pkgs.callPackage ./pkgs/klee.nix {
-            llvmPackages = llvm16;
-          };
-        };
-        legacyPackages = {
-          llvmPackages = llvm16;
-          stdenv = llvm16.stdenv;
+          klee = pkgs.klee;
         };
       }
     );
