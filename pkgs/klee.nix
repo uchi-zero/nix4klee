@@ -49,8 +49,8 @@ in
     src = fetchFromGitHub {
       owner = "uchi-zero";
       repo = "klee";
-      rev = "df5a8f0c7f46db734e61eb5db938561d006dc231";
-      hash = "sha256-CL5rm5pR+wtkoWsNXnKw9JQ/fduZRnk1O06QXabRVg4=";
+      rev = "b0bba2c50898d224749b9278803b314b7f5adc98";
+      hash = "sha256-B3zTPSDQyS+ka44pstwvUcL0qCQCkEMkFZ+zumLeS+0=";
     };
 
     nativeBuildInputs = [cmake];
